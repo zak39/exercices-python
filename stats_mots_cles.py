@@ -10,6 +10,9 @@ compter = 0
 for i in range(0,nb):
     compter = compter + liste.count(doublon_liste[i])
 
+for i in range(0,nb):
+    print(str(doublon_liste[i])+" "+str(liste.count(doublon_liste[i])))
+
 print(liste)
 print(doublon_liste)
 print(nb)
