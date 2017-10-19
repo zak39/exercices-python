@@ -13,6 +13,11 @@ for i in range(0,nb):
 for i in range(0,nb):
     print(str(doublon_liste[i])+" "+str(liste.count(doublon_liste[i])))
 
+for i in range(0,nb):
+    calcul = round((float(liste.count(doublon_liste[i]))/float(compter))*100,2)
+    print("Le mot '{}' apparait {} sur les {} soit {}% de fois.".format(str(doublon_liste[i]),str(liste.count(doublon_liste[i])),str(nb),str(calcul)))
+
+
 print(liste)
 print(doublon_liste)
 print(nb)
