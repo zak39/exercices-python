@@ -10,13 +10,13 @@ def Solution(resultat):
     if resultat < 0:
         print("Le delta est égal à "+str(resultat))
         print("L'équation possede deux solutions complexe")
-        rc_resultat=math.sqrt(abs(resultat))
-        x1R="({} - {})".format(-b,rc_resultat)                            # Partie réelle du calcul
-        x2R="({} + {})".format(-b,rc_resultat)                            # Partie réelle du calcul
-        pr="2*"+str(a)                                                     # Partie dividende
+        rc_resultat=resultat*-1
+        x1R="({} - i RacineCarre({}))/{}".format(-b,rc_resultat,2*a)                            # Partie réelle du calcul
+        x2R="({} + i RacineCarre({}))/{}".format(-b,rc_resultat,2*a)                            # Partie réelle du calcul
+                                                           # Partie dividende
 
-        print ("X1 = {} + RacineCarre(i * {})".format(x1R,pr))             # On affiche la première solution
-        print ("X2 = {} - RacineCarre(i * {})".format(x2R,pr))             # On affiche la deuxième solution
+        print(x1R) # On affiche la première solution
+        print(x2R) # On affiche la deuxième solution
 
     elif resultat == 0:
         print("Delta est egal à "+str(resultat))
