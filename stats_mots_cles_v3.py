@@ -36,7 +36,7 @@ def deleteElement(liste_parse):
     return liste_parse
 
 def deleteCaractere(texte_parse):
-    texte_parse = texte_parse.replace("."," ")    
+    texte_parse = texte_parse.replace("."," ")
     texte_parse = texte_parse.replace("'"," ")
     texte_parse = texte_parse.replace(","," ")
     texte_parse = texte_parse.replace('"',' ')
@@ -51,20 +51,35 @@ def deleteCaractere(texte_parse):
 
     return liste_parse
 
+def OpenFic(fic):
+    # ouverture du fichier html
+    ouvrir_fic=open(fic)
+    # lecture du fichier
+    contenu=ouvrir_fic.read()
+    return contenu
+    CloseFile(contenu)
+
+
 #--------- main ---------
 
 # Initialisation des variables
-texte = "\nLe chat (noir) est sur un \"arbre\" noir prés d'un tracteur noir.\nMais n'hésite pas à attaquer un hérisson avec ses griffes.\nFort heureusement , un cerf a pu le défendre !"
 
-liste = deleteCaractere(texte)
+chemin = raw_input("Merci de saisir le chemin absolu de votre fichier\n\tExemple : /home/Documents/fichier.txt.\n\nSaisir chemin absolu : ")
 
-print("Voici le texte à analyser : \n"+texte)
+try:
+    texte = OpenFic(chemin)
 
-liste = deleteElement(liste)
-doublon_liste = list(set(liste))
-nombre = len(doublon_liste)
+    liste = deleteCaractere(texte)
 
-# Appel(le)s fonctions / méthodes
-compt = comptage(nombre)
-affiche_occurrence(nombre,doublon_liste)
-pourcentage(doublon_liste,nombre,compt)
+    print("\nVoici le texte à analyser : \n\n"+texte)
+
+    liste = deleteElement(liste)
+    doublon_liste = list(set(liste))
+    nombre = len(doublon_liste)
+
+    # Appel(le)s fonctions / méthodes
+    compt = comptage(nombre)
+    affiche_occurrence(nombre,doublon_liste)
+    pourcentage(doublon_liste,nombre,compt)
+except:
+    print("Le fichier n'a pas pu être ouvert")
