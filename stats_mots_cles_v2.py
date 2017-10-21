@@ -20,11 +20,30 @@ def pourcentage(doublon_liste,nb,compter):
         calcul = round((float(liste.count(doublon_liste[i]))/float(compter))*100,2)
         print("Le mot '{}' apparait {} sur les {} soit {}% de fois.".format(str(doublon_liste[i]),str(liste.count(doublon_liste[i])),str(nb),str(calcul)))
 
+def deleteElement(liste_parse):
+    rep = True
+    while rep:
+        char = raw_input("\nEst-ce que vous voulez ignorer des mots ? [O]ui [N]on ")
+        if char == "O":
+            liste_ignore = raw_input("\nEcrire votre liste de mot à ignorer en mettant comme séparateur des espaces : ")
+            liste_ignore = liste_ignore.split()
+            liste_parse = [item for item in liste_parse if item not in liste_ignore]
+            rep = False
+        elif char != "N":
+            print("\nProblème dans la saissie.\n")
+        else:
+            rep = False
+    return liste_parse
+
 #--------- main ---------
 
 # Initialisation des variables
-texte = "Le chat noir est sur un arbre noir prés d'un tracteur noir".replace("'"," ")
+texte = "\nLe chat noir est sur un arbre noir prés d'un tracteur noir\n".replace("'"," ")
 liste = texte.split()
+
+print("Voici le texte à analyser : \n"+texte)
+
+liste = deleteElement(liste)
 doublon_liste = list(set(liste))
 nombre = len(doublon_liste)
 
