@@ -35,11 +35,32 @@ def deleteElement(liste_parse):
             rep = False
     return liste_parse
 
+def deleteCaractere(texte_parse):
+    texte_parse = texte_parse.replace("."," ")
+    texte_parse = texte_parse.replace("'"," ")
+    texte_parse = texte_parse.replace(","," ")
+    texte_parse = texte_parse.replace('"',' ')
+    texte_parse = texte_parse.replace(':',' ')
+    texte_parse = texte_parse.replace(';',' ')
+    texte_parse = texte_parse.replace('(',' ')
+    texte_parse = texte_parse.replace(')',' ')
+
+    liste_parse = texte_parse.split()
+    liste_caractere = ["?","!"]
+    liste_parse = [item for item in liste_parse if item not in liste_caractere]
+
+    return liste_parse
+
+
 #--------- main ---------
 
 # Initialisation des variables
-texte = "\nLe chat noir est sur un arbre noir prés d'un tracteur noir\n".replace("'"," ")
-liste = texte.split()
+#texte = "\nLe chat noir est sur un arbre noir prés d'un tracteur noir\n".replace("'"," ")
+texte = raw_input("Saisir une phrase(s) : ")
+texte = "\n"+texte+"\n".replace("'"," ")
+#liste = texte.split()
+
+liste = deleteCaractere(texte)
 
 print("Voici le texte à analyser : \n"+texte)
 
