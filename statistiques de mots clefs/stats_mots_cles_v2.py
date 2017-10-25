@@ -20,6 +20,7 @@ def pourcentage(doublon_liste,nb,compter):
         calcul = round((float(liste.count(doublon_liste[i]))/float(compter))*100,2)
         print("Le mot '{}' apparait {} sur les {} soit {}% de fois.".format(str(doublon_liste[i]),str(liste.count(doublon_liste[i])),str(nb),str(calcul)))
 
+# Supprime des mots dans la var texte
 def deleteElement(liste_parse):
     rep = True
     while rep:
@@ -35,6 +36,7 @@ def deleteElement(liste_parse):
             rep = False
     return liste_parse
 
+# Supprime certaine ponctuation dans le texte
 def deleteCaractere(texte_parse):
     texte_parse = texte_parse.replace("."," ")
     texte_parse = texte_parse.replace("'"," ")
