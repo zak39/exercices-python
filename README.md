@@ -9,4 +9,6 @@ Les versions antérieures et postérieures n'ont pas pu testés.
 
 **Fichier(s) a prendre en compte pour le travail rendu :**
 
-* 20/10/2017 : equation_second_degres.py
+* 20/10/2017 : equation second degres
+* 25/10/2017 : statistiques de mots clefs
+* 25/10/2017 : amortissement
