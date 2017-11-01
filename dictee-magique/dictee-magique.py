@@ -94,6 +94,17 @@ def CloseSound(stream,initAudio):
     stream.close()
     initAudio.terminate()
 
+def TraitementAudio(fichierWave):
+    musique = OpenWave(fichierWave)
+
+    initialisation_audio = pyaudio.PyAudio()
+    prepa_lecture = Stream(initialisation_audio,musique)
+
+    donnees = ReadData(musique)
+
+    PlaySound(prepa_lecture,donnees,musique)
+    pass
+
 #--------- main ---------
 
 # Initialisation des variables
@@ -119,13 +130,7 @@ except:
     print("Le fichier n'a pas pu être ouvert")
 
 #--------- main2 ---------
-musique = OpenWave("sons/naturals/sheep.wav")
-
-initialisation_audio = pyaudio.PyAudio()
-prepa_lecture = Stream(initialisation_audio,musique)
-
-donnees = ReadData(musique)
-
-PlaySound(prepa_lecture,donnees,musique)
 #CloseSound(prepa_lecture,initialisation_audio)
-PlaySound(prepa_lecture,donnees,musique)
+TraitementAudio("sons/naturals/sheep.wav")
+print("--------------- Deuxième piste ---------------")
+TraitementAudio("sons/naturals/sheep.wav")
