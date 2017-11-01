@@ -2,7 +2,7 @@
 
 #--------- Imports ---------
 
-import wave, pyaudio
+import wave, pyaudio, os
 
 #--------- fonctions / méthodes ---------
 
@@ -131,6 +131,15 @@ except:
 
 #--------- main2 ---------
 #CloseSound(prepa_lecture,initialisation_audio)
-TraitementAudio("sons/naturals/sheep.wav")
-print("--------------- Deuxième piste ---------------")
-TraitementAudio("sons/naturals/sheep.wav")
+path="sons/naturals/"
+ListeMusique=os.listdir("sons/naturals/")
+path_list_music = []
+
+for item in ListeMusique:
+    path_list_music.append(path+item)
+
+for item in path_list_music:
+    TraitementAudio(item)
+#TraitementAudio("sons/naturals/sheep.wav")
+#print("--------------- Deuxième piste ---------------")
+#TraitementAudio("sons/naturals/sheep.wav")
