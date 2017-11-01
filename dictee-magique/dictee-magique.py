@@ -2,7 +2,7 @@
 
 #--------- Imports ---------
 
-import wave, pyaudio, os
+import wave, pyaudio, os, random
 
 #--------- fonctions / méthodes ---------
 
@@ -68,10 +68,12 @@ def OpenFic(fic):
 
 #--
 
+# Ouverture du son au format wave
 def OpenWave(mus):
     open_mus = wave.open(mus,"rb")
     return open_mus
 
+# Récupération de certainnes propriétés du son
 def Stream(initAudio,open_mus):
     stream = initAudio.open(
                 format=initAudio.get_format_from_width(open_mus.getsampwidth()),
@@ -80,20 +82,24 @@ def Stream(initAudio,open_mus):
                 output=True)
     return stream
 
+# Lire des données d'un son en 1024 octets
 def ReadData(open_mus):
     data = open_mus.readframes(1024)
     return data
 
+# Jouer le son en ligne de commande
 def PlaySound(stream,data,open_mus):
     while len(data) > 0:
         stream.write(data)
         data = open_mus.readframes(1024)
 
+# Fermeture des fichiers
 def CloseSound(stream,initAudio):
     stream.stop_stream()
     stream.close()
     initAudio.terminate()
 
+# Fonction qui répète les traitements pour jouer un son en ligne de commande
 def TraitementAudio(fichierWave):
     musique = OpenWave(fichierWave)
 
@@ -103,6 +109,15 @@ def TraitementAudio(fichierWave):
     donnees = ReadData(musique)
 
     PlaySound(prepa_lecture,donnees,musique)
+    pass
+
+#--
+
+def ListenWordSound(nb,doublon_liste,chemin_mus):
+    print("Attention ! Écoutez le son associé au mot")
+    for i in range(0,nb):
+        print("Le mot '{}' est associé au son '{}'".format(doublon_liste[i],chemin_mus[i]))
+        TraitementAudio(chemin_mus[i])
     pass
 
 #--------- main ---------
@@ -132,14 +147,48 @@ except:
 #--------- main2 ---------
 #CloseSound(prepa_lecture,initialisation_audio)
 path="sons/naturals/"
-ListeMusique=os.listdir("sons/naturals/")
+ListeMusique=os.listdir(path)
 path_list_music = []
 
+# Ajout dans une liste le chemin absolu des sons
 for item in ListeMusique:
     path_list_music.append(path+item)
 
-for item in path_list_music:
-    TraitementAudio(item)
-#TraitementAudio("sons/naturals/sheep.wav")
-#print("--------------- Deuxième piste ---------------")
-#TraitementAudio("sons/naturals/sheep.wav")
+# Joue les sons en parcourant la liste des différents sons
+#for item in path_list_music:
+#    print("Le son utilisé est le {}".format(item))
+#    TraitementAudio(item)
+
+print("---------------------------")
+print("Il y a en tout {} mot(s) dans le fichier".format(nombre))
+nombre_sons = len(path_list_music)
+print("Il y a {} son(s) en tout".format(nombre_sons))
+
+if nombre > nombre_sons:
+    print("Il y a trop de mot ! Merci d'en retirer dans votre fichier.\n\n\tRemarque : Vous pouvez avoir des doublons dans votre fichier")
+else:
+    #print("On joue les sons")
+    difference = nombre_sons - nombre
+    #print("La différence est de {}".format(difference))
+
+    for nb in range(0,difference):
+        path_list_music.pop()
+
+    #print("Maintenant il y a {} son(s)".format(len(path_list_music)))
+
+    #print("\nVoici les doublons : {}".format(doublon_liste)+"\n")
+    #print("==============================================")
+
+    ListenWordSound(nombre,doublon_liste,path_list_music)
+
+    point=0
+
+    saisieUser = ""
+    fini = False
+    while fini == False:
+        print(path_list_music)
+        random.shuffle(path_list_music)
+        print(path_list_music)
+        saisieUser = raw_input("Saisir le texte : ")
+        fini=True
+        pass
