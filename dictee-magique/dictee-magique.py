@@ -2,27 +2,20 @@
 
 #--------- Imports ---------
 
-import wave, pyaudio, os, random
+import os, random, collections, time
+
+try:
+    import wave
+except:
+    print("Il faut installer le module wave avec pip : pip install wave")
+
+try:
+    import pyaudio
+except:
+    print("Il faut installer le module pyaudio en téléchargeant le packet suivant sous linux : python-pyaudio")
+
 
 #--------- fonctions / méthodes ---------
-
-# Compter le nombre de mot
-def comptage(nb):
-    compter = 0
-    for i in range(0,nb):
-        compter = compter + liste.count(doublon_liste[i])
-    return compter
-
-# Afficher le mot et le nombre d'occurence
-def affiche_occurrence(nb,doublon_liste):
-    for i in range(0,nb):
-        print(str(doublon_liste[i])+" "+str(liste.count(doublon_liste[i])))
-
-# Affiche le taux d'occurence dans un texte
-def pourcentage(doublon_liste,nb,compter):
-    for i in range(0,nb):
-        calcul = round((float(liste.count(doublon_liste[i]))/float(compter))*100,2)
-        print("Le mot '{}' apparait {} sur les {} soit {}% de fois.".format(str(doublon_liste[i]),str(liste.count(doublon_liste[i])),str(nb),str(calcul)))
 
 # Supprime des mots dans la var texte
 def deleteElement(liste_parse):
@@ -113,11 +106,75 @@ def TraitementAudio(fichierWave):
 
 #--
 
-def ListenWordSound(nb,doublon_liste,chemin_mus):
-    print("Attention ! Écoutez le son associé au mot")
+# Méthode qui supprime les éléments dans la liste de musique en fonction du nombre de mot
+def DeleteDiff(nbson,nb,path_list_music):
+    difference = nbson - nb
+    for nb in range(0,difference):
+        path_list_music.pop()
+    pass
+
+# Fonction qui assemble les listes de mot et de musique en dictionnaire
+def ConvertToDic(liste,liste2):
+    nb = len(liste)
+    dictionnaire = {}
     for i in range(0,nb):
-        print("Le mot '{}' est associé au son '{}'".format(doublon_liste[i],chemin_mus[i]))
-        TraitementAudio(chemin_mus[i])
+        dictionnaire[liste[i]] = liste2[i]
+    return dictionnaire
+
+# Méthode pour écouter le son associé au mot avant de jouer
+def ListenWordSound(dico):
+    print("\nAttention ! Écoutez le son associé au mot\n")
+    time.sleep(10)
+    for key,value in dico.iteritems():
+        print("Le mot '{}'".format(key))
+        TraitementAudio(value)
+        time.sleep(3)
+    pass
+
+# Fonction qui tri aléatoirement le dictionnaire pour le jeu
+def RandomDico(dico):
+    listeDeDico = dico.items()
+    random.shuffle(listeDeDico)
+    dico = collections.OrderedDict(listeDeDico)
+    return dico
+
+# Fonction qui calcul le score et indique si l'utilisateur a saisi le bon mot
+def PointAndIdication(point,value,saissie_user):
+    if saissie_user == value:
+        point=point+1
+        rep = "Vous avez juste"
+    else:
+        rep = "Vous avez faux"
+    return point,rep
+    pass
+
+def Score(point):
+    moyenne = round(float(point)/float(2))
+    if point >= moyenne:
+        print("Cool ! Vous êtes supérieures à la moyenne ! ;)")
+    elif point == moyenne:
+        print("Pas mal ! Vous avez pile la moyenne :)")
+    elif point <= moyenne:
+        print("Vous n'étiez pas loin des attentes. Faite vous une réfléxion de vos erreurs et ré-éssayez ;)")
+    pass
+
+# Méthode pour débuter le jeu
+def StartTheGame(dico):
+    point=0
+    saisieUser = ""
+    fini = False
+
+    while fini == False:
+        print("\nGo à vous !\n")
+        for key,value in dico.iteritems():
+            TraitementAudio(value)
+            saisieUser = raw_input("Saisir le texte : ")
+            point,reponse = PointAndIdication(point,key,saisieUser)
+            print(reponse)
+        fini=True
+        pass
+        print("Vous avez {} point(s) sur les {} mot(s)".format(point,nombre))
+        Score(point)
     pass
 
 #--------- main ---------
@@ -137,58 +194,29 @@ try:
     doublon_liste = list(set(liste))
     nombre = len(doublon_liste)
 
-    # Appel(le)s fonctions / méthodes
-    compt = comptage(nombre)
-    affiche_occurrence(nombre,doublon_liste)
-    pourcentage(doublon_liste,nombre,compt)
+    #--------- main2 ---------
+
+    path="sons/naturals/"
+    ListeMusique=os.listdir(path)
+    path_list_music = []
+
+    # Ajout dans une liste le chemin absolu des sons
+    for item in ListeMusique:
+        path_list_music.append(path+item)
+
+    nombre_sons = len(path_list_music)
+    print("Il y a {} son(s) en tout".format(nombre_sons))
+
+    if nombre > nombre_sons:
+        print("Il y a en tout {} mot(s) dans le fichier".format(nombre))
+        print("Il y a trop de mot ! Merci d'en retirer dans votre fichier.\n\n\tRemarque : Vous pouvez avoir des doublons dans votre fichier")
+    else:
+        print("Il y a en tout {} mot(s) dans le fichier".format(nombre))
+
+        DeleteDiff(nombre_sons,nombre,path_list_music)
+        MonDictionnaire = ConvertToDic(doublon_liste,path_list_music)
+        ListenWordSound(MonDictionnaire)
+        MonDictionnaire = RandomDico(MonDictionnaire)
+        StartTheGame(MonDictionnaire)
 except:
     print("Le fichier n'a pas pu être ouvert")
-
-#--------- main2 ---------
-#CloseSound(prepa_lecture,initialisation_audio)
-path="sons/naturals/"
-ListeMusique=os.listdir(path)
-path_list_music = []
-
-# Ajout dans une liste le chemin absolu des sons
-for item in ListeMusique:
-    path_list_music.append(path+item)
-
-# Joue les sons en parcourant la liste des différents sons
-#for item in path_list_music:
-#    print("Le son utilisé est le {}".format(item))
-#    TraitementAudio(item)
-
-print("---------------------------")
-print("Il y a en tout {} mot(s) dans le fichier".format(nombre))
-nombre_sons = len(path_list_music)
-print("Il y a {} son(s) en tout".format(nombre_sons))
-
-if nombre > nombre_sons:
-    print("Il y a trop de mot ! Merci d'en retirer dans votre fichier.\n\n\tRemarque : Vous pouvez avoir des doublons dans votre fichier")
-else:
-    #print("On joue les sons")
-    difference = nombre_sons - nombre
-    #print("La différence est de {}".format(difference))
-
-    for nb in range(0,difference):
-        path_list_music.pop()
-
-    #print("Maintenant il y a {} son(s)".format(len(path_list_music)))
-
-    #print("\nVoici les doublons : {}".format(doublon_liste)+"\n")
-    #print("==============================================")
-
-    ListenWordSound(nombre,doublon_liste,path_list_music)
-
-    point=0
-
-    saisieUser = ""
-    fini = False
-    while fini == False:
-        print(path_list_music)
-        random.shuffle(path_list_music)
-        print(path_list_music)
-        saisieUser = raw_input("Saisir le texte : ")
-        fini=True
-        pass
