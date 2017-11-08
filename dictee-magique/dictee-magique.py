@@ -3,7 +3,7 @@
 # Script dont les sons sont associes a des mots.
 # Mais ces mots n'ont aucun rapport avec les sons.
 # Par exemple : Le son "poule" est associe au mot "cool"
-# Donc aucun rapport 
+# Donc aucun rapport
 
 #--------- Imports ---------
 
@@ -197,6 +197,7 @@ try:
 
     liste = deleteElement(liste)
     doublon_liste = list(set(liste))
+    doublon_liste.sort()
     nombre = len(doublon_liste)
 
     #--------- main2 ---------
@@ -209,6 +210,8 @@ try:
     for item in ListeMusique:
         path_list_music.append(path+item)
 
+    print("Affichage des musiques triées")
+    path_list_music.sort()
     nombre_sons = len(path_list_music)
     print("Il y a {} son(s) en tout".format(nombre_sons))
 
