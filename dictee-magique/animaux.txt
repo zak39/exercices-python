@@ -1,0 +1,15 @@
+ane
+canard
+cheval
+chien
+cochon
+coq
+dauphin
+elephant
+lion
+loup
+mouton
+phoque
+rhinoceros
+singe
+vache
