@@ -1,5 +1,10 @@
 # -*- coding:utf8 -*-
 
+# Script dont les sons sont associes a des mots.
+# Mais ces mots n'ont aucun rapport avec les sons.
+# Par exemple : Le son "poule" est associe au mot "cool"
+# Donc aucun rapport 
+
 #--------- Imports ---------
 
 import os, random, collections, time
@@ -215,6 +220,7 @@ try:
 
         DeleteDiff(nombre_sons,nombre,path_list_music)
         MonDictionnaire = ConvertToDic(doublon_liste,path_list_music)
+        #MonDictionnaire = RandomDico(MonDictionnaire)
         ListenWordSound(MonDictionnaire)
         MonDictionnaire = RandomDico(MonDictionnaire)
         StartTheGame(MonDictionnaire)
