@@ -1,10 +1,5 @@
 # -*- coding:utf8 -*-
 
-# Script dont les sons sont associes a des mots.
-# Mais ces mots n'ont aucun rapport avec les sons.
-# Par exemple : Le son "poule" est associe au mot "cool"
-# Donc aucun rapport
-
 #--------- Imports ---------
 
 import os, random, collections, time
@@ -17,26 +12,10 @@ except:
 try:
     import pyaudio
 except:
-    print("Il faut installer le module pyaudio en téléchargeant le packet suivant sous linux : python-pyaudio")
+    print("Il faut installer le module pyaudio en téléchargeant le paquet suivant sous linux : python-pyaudio")
 
 
 #--------- fonctions / méthodes ---------
-
-# Supprime des mots dans la var texte
-def deleteElement(liste_parse):
-    rep = True
-    while rep:
-        char = raw_input("\nEst-ce que vous voulez ignorer des mots ? [O]ui [N]on ")
-        if char == "O":
-            liste_ignore = raw_input("\nEcrire votre liste de mot à ignorer en mettant comme séparateur des espaces : ")
-            liste_ignore = liste_ignore.split()
-            liste_parse = [item for item in liste_parse if item not in liste_ignore]
-            rep = False
-        elif char != "N":
-            print("\nProblème dans la saissie.\n")
-        else:
-            rep = False
-    return liste_parse
 
 # Supprime certaine ponctuation dans le texte
 def deleteCaractere(texte_parse):
@@ -195,7 +174,6 @@ try:
 
     print("\nVoici le texte à analyser : \n\n"+texte)
 
-    liste = deleteElement(liste)
     doublon_liste = list(set(liste))
     doublon_liste.sort()
     nombre = len(doublon_liste)
@@ -210,7 +188,6 @@ try:
     for item in ListeMusique:
         path_list_music.append(path+item)
 
-    print("Affichage des musiques triées")
     path_list_music.sort()
     nombre_sons = len(path_list_music)
     print("Il y a {} son(s) en tout".format(nombre_sons))
@@ -223,7 +200,6 @@ try:
 
         DeleteDiff(nombre_sons,nombre,path_list_music)
         MonDictionnaire = ConvertToDic(doublon_liste,path_list_music)
-        #MonDictionnaire = RandomDico(MonDictionnaire)
         ListenWordSound(MonDictionnaire)
         MonDictionnaire = RandomDico(MonDictionnaire)
         StartTheGame(MonDictionnaire)
