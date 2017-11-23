@@ -42,6 +42,6 @@ class Personnage:
 
     def estBonOuMechant(self):
         if self.nom == "Snow" or self.nom == "Stark":
-            return True
+            print("C'est un gentil !")
         elif self.nom == "Lannister" or self.nom == "Tyrel":
-            return False
+            print("C'est un méchant !")
