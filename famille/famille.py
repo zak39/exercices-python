@@ -49,8 +49,13 @@ class Famille:
         self.membres.append(prenom)
 
     def charger(self):
-        pass
+        fic = open("{}.txt".format(self.nom),"r")
+        print(fic.read())
+        fic.close()
 
     def sauvegarder(self):
-        #fic = open(self.nom(),"w")
-        pass
+        fic = open("{}.txt".format(self.nom),"w")
+        for item in self.membres:
+            fic.writelines(item)
+            fic.writelines("\n")
+        fic.close()
