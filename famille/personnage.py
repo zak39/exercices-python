@@ -21,6 +21,7 @@ class Personnage:
         self.prenom = firstname
         self.force = muscle
 
+
     def set_nom(self,lastname):
         self.nom = lastname
 
@@ -44,19 +45,3 @@ class Personnage:
             return True
         elif self.nom == "Lannister" or self.nom == "Tyrel":
             return False
-
-jon = Personnage("Snow","Jon")
-print("Voici {} {} et il a une force de {}".format(jon.get_prenom(),jon.get_nom(),jon.get_force()))
-
-if jon.estBonOuMechant():
-    print("C'est un gentil !")
-else:
-    print("C'est un méchant !")
-
-tiwyn = Personnage("Tiwyn","Lannister",150)
-print("Voici {} {} et il a une force de {}".format(tiwyn.get_prenom(),tiwyn.get_nom(),tiwyn.get_force()))
-
-if tiwyn.estBonOuMechant():
-    print("C'est un gentil !")
-else:
-    print("C'est un méchant !")
