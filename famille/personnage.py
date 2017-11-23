@@ -45,3 +45,22 @@ class Personnage:
             print("C'est un gentil !")
         elif self.nom == "Lannister" or self.nom == "Tyrel":
             print("C'est un méchant !")
+
+class Heros(Personnage):
+    """
+    Class qui hérite la class Personnage.
+    L'attribut statut peut être soit "Mort" soit "Vivant" soit "Marcheur Blanc"
+    """
+    # Constructeur de la classe Heros
+    def __init__(self,lastname,firstname,stat,muscle=80):
+        Personnage.__init__(self,lastname,firstname,muscle)
+        self.statut = stat
+
+    def set_statut(self,stat):
+        self.statut = stat
+
+    def get_statut(self):
+        return self.statut
+
+    def recouvrirFroce(self):
+        self.force = 100
