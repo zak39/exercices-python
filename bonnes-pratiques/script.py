@@ -29,7 +29,7 @@ if __name__ == '__main__':
     unittest.main() # Execute un programme principal, depuis une class, dont le code contient le module unittest.
 		    # Cet appel permet de retourner le résultat du problème concerné depuis la class MyTest.
     doctest.testmod() # Permet de retourner le jeu d'essai de notre DocString s'il y a une erreur.
-		      # En effet, le DocTest est capable de faire un test avec la mise en place d'un exemple réel avec ">>>Somme(2,3)" avec le résultat attendu et réel qui est 5. Si nous mettions "res = a+b+2". Le programme va détecter une erreur comme quoi c'est 
+		      # En effet, le DocTest est capable de faire un test avec la mise en place d'un exemple réel avec ">>>Somme(2,3)" avec le résultat attendu et réel qui est 5. Si nous mettions "res = a+b+2". Le programme va détecter une erreur comme quoi c'est
 
 # Code non exécuté car ne fait pas partie du bloc conditionnel if __name__ == '__main__':
 print("coucou")
