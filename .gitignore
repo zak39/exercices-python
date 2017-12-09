@@ -1,0 +1,5 @@
+*.txt
+*.bak
+*.*.bak
+*.tar.gz
+*.pyc
