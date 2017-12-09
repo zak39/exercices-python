@@ -22,6 +22,10 @@ class Famille:
         self.chef = leader
         self.membres = membre
 
+    # Methode spéciale permettant de d'afficher un objet au format string
+    def __str__(self):
+        return "{} sont des membres de la famille {} dont le leader est {}".format(self.membres,self.nom,self.chef)
+
     # Setters
     def set_nom(self,lastname):
         self.nom = lastname

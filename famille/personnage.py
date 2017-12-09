@@ -21,7 +21,11 @@ class Personnage:
         self.prenom = firstname
         self.force = muscle
 
+    # Methode spéciale permettant de d'afficher un objet au format string
+    def __str__(self):
+        return "{} {} possède une force de {}".format(self.prenom,self.nom,self.force)
 
+    # Setters
     def set_nom(self,lastname):
         self.nom = lastname
 
@@ -31,6 +35,7 @@ class Personnage:
     def set_force(self,muscle):
         self.force = muscle
 
+    # Getters
     def get_nom(self):
         return self.nom
 
@@ -40,6 +45,7 @@ class Personnage:
     def get_force(self):
         return self.force
 
+    # Methode pour savoir si le personnage est un gentil ou un mechant
     def estBonOuMechant(self):
         if self.nom == "Snow" or self.nom == "Stark":
             print("C'est un gentil !")
@@ -56,11 +62,18 @@ class Heros(Personnage):
         Personnage.__init__(self,lastname,firstname,muscle)
         self.statut = stat
 
+    # Methode spéciale permettant de d'afficher un objet au format string
+    def __str__(self):
+        return "{} {} est un héros avec {} de force et faisant partie des {}".format(self.prenom,self.nom,self.force,self.statut)
+
+    # Setters
     def set_statut(self,stat):
         self.statut = stat
 
+    # Getters
     def get_statut(self):
         return self.statut
 
+    # Methode pour remettre la force à 100
     def recouvrirFroce(self):
         self.force = 100
