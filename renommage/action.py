@@ -39,13 +39,13 @@ class Renommage(Action):
     def __init__(self,namedirectory,rule=""):
         Action.__init__(self,namedirectory,rule)
 
-    def renommer(self,motlet="aucun",apartir="",pre="",namefile=(False,""),post="",extension=[]):
+    def renommer(self,num_or_let="aucun",apartir="",pre="",namefile=(False,""),post="",extension=[]):
         maliste = []
         chemin_complet = []
         files = os.listdir(self.nomdurepertoire)
         chemin = os.path.abspath(self.nomdurepertoire)+"/"
-        #print("files : {}".format(files))
-        #print("chemin : {}".format(chemin))
+        if num_or_let == "aucun":
+            num_or_let = ""
 
         #"texte.txt".rsplit('.')
         #['texte', 'txt']
@@ -54,6 +54,7 @@ class Renommage(Action):
         for cheminc in files:
             chemin_complet.append(chemin+cheminc)
 
+        depart_chemin_complet = chemin_complet
         #chemin_complet = [item for item in chemin_complet if item not in extension]
 
         #for item in chemin_complet:
@@ -61,31 +62,18 @@ class Renommage(Action):
 
         # les extensions
         if extension:
-            print(True)
-            #ext = ["fichier1.txt","fichier2.txt","fichier3.txt"]
-            #files = [item for item in files if item not in ext]
             trie_liste_chemin = []
             for ext in extension:
-                #print ext
                 for chemin in chemin_complet:
-                    #print chemin.rsplit('.')[1]
                     if ext in chemin:
                         trie_liste_chemin.append(chemin)
             chemin_complet = trie_liste_chemin
-            #for f in extension:
-            #    files_reste.append(chemin+f)
         else:
-            print(False)
+            print("Aucune extension prise en compte.")
 
         print("Voici le chemin complet final")
         for item in chemin_complet:
             print item
-
-        #for item in files:
-        #    print("New files : {}".format(item))
-
-        #for item in files_reste:
-        #    print("files reste start : {}".format(item))
 
         # le renommage de fichier
         # Décomposer le nom fichier pour récupérer les extenstions et leur attribuer des numéros (doit être dans amorce)
@@ -93,17 +81,24 @@ class Renommage(Action):
             print("namefile True : {}".format(namefile))
             new_word = namefile[1]
             cpt = 0
+
+            for item in chemin_complet:
+                if num_or_let == "chiffre":
+                    for item2 in files:
+                        print("{} va être remplacé par {}".format(item,item2))
+                    pass
+            pass
+
             for f in files:
                 new_path = chemin+str(cpt)+"_"+new_word
                 pathabs = chemin+f
                 #print("new_path : {}".format(new_path))
                 #print("pathabs : {}".format(pathabs))
                 cpt = cpt+1
-                #os.rename(pathabs,new_path)
                 files = new_path
             namefile = (False,namefile[1])
             #print("Dans namefile : {}".format(files))
-            #print(namefile)
+            print("namefile : {}".format(namefile))
             new_path = ""
             pathabs = ""
             #files = os.listdir(self.nomdurepertoire)
@@ -142,7 +137,12 @@ class Renommage(Action):
         else:
             print("Il n'y a pas de postfixe")
 
-        #print("files : {}".format(files))
-        #print("files_reste {}".format(files_reste))
+        print("Début")
+        for item in depart_chemin_complet:
+            print(item)
+
+        print("Fin")
+        for item in chemin_complet:
+            print(item)
 
         #os.rename(files,files_reste)
