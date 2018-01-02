@@ -7,7 +7,7 @@ from action import *
 
 #----- main -----
 
-regle = Regle("aucun","","aos_",(True,"depose"),"_devops",[".txt",".png"])
+regle = Regle("chiffre","","aos_",(True,"depose"),"_devops",[".txt",".png"])
 print(regle.get_prefixe())
 print(type(regle.get_prefixe()))
 
